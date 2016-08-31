@@ -11,7 +11,7 @@ module.exports = function(logger, app, di) {
 
         var restConfig = {
             baseUrl: '/',
-            title: 'mazaid checks REST API',
+            title: 'mazaid exec tasks REST API',
             description: ''
         };
 

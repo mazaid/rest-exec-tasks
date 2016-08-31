@@ -10,16 +10,16 @@ class ExecTasks extends Abstract {
         this._collectionName = 'execTasks';
 
         this._indexes = [
-            // {
-            //     fields: {
-            //         name: 1
-            //     },
-            //     options: {
-            //         name: 'name',
-            //         unique: true,
-            //         background: true
-            //     }
-            // }
+            {
+                fields: {
+                    creationDate: -1
+                },
+                options: {
+                    name: 'creationDate',
+                    unique: false,
+                    background: true
+                }
+            }
         ];
     }
 

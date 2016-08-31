@@ -28,8 +28,8 @@ class ExecTasks extends Abstract {
             return {
                 checkTaskId: joi.string().guid().default(null).allow(null),
                 type: joi.string().valid(['exec', 'http']).required(),
-                timeout: joi.number().integer().min(1).default(60)
-                            .description('task execution timeout in seconds, default = 60'),
+                timeout: joi.number().integer().min(1).default(120)
+                            .description('task execution timeout in seconds'),
                 data: joi.object().unknown(true).required(),
                 status: joi.string().valid(['created', 'queued', 'started', 'finished']).required(),
                 result: joi.object().unknown(true).default(null).allow(null),
@@ -79,24 +79,6 @@ class ExecTasks extends Abstract {
 
     }
 
-    getByName(name)  {
-
-        return new Promise((resolve, reject) => {
-            var query = {
-                name: name
-            };
-
-            this._model().findOne(query)
-                .then((doc) => {
-                    resolve(doc);
-                })
-                .catch((error) => {
-                    reject(error);
-                });
-
-        });
-    }
-
     find(filters, fields) {
 
         var chain = new Chain({
@@ -135,6 +117,7 @@ class ExecTasks extends Abstract {
                 return reject(this.Error('empty data', this.ErrorCodes.INVALID_DATA));
             }
 
+            // TODO
             if (!data.timeout) {
                 data.timeout = 60;
             }
@@ -155,7 +138,6 @@ class ExecTasks extends Abstract {
                     if (error.name == 'ApiError' && error.code === ErrorCodes.INVALID_DATA) {
                         reject(
                             this.Error(error.message, error.code)
-                                // .setEntity(error.entity)
                                 .setList(error.list)
                         );
                     } else {
@@ -216,36 +198,6 @@ class ExecTasks extends Abstract {
 
     }
 
-    updateByName(name, data) {
-
-        return new Promise((resolve, reject) => {
-            if (!data) {
-                return reject(this.Error('empty data', this.errorCodes.INVALID_DATA));
-            }
-
-            this.getByName(name)
-                .then((doc) => {
-
-                    if (!doc) {
-                        throw this.Error(
-                            `${this.entityName} not found: name = ${name}`,
-                            this.errorCodes.NOT_FOUND
-                        );
-                    }
-
-                    return this.updateById(doc.id, data);
-                })
-                .then((updated) => {
-                    resolve(updated);
-                })
-                .catch(function (error) {
-                    reject(error);
-                });
-
-        });
-
-    }
-
     deleteById(id) {
 
         return new Promise((resolve, reject) => {
@@ -271,31 +223,6 @@ class ExecTasks extends Abstract {
                             }
                         }
                     );
-                })
-                .then((result) => {
-                    resolve(result);
-                })
-                .catch((error) => {
-                    reject(error);
-                });
-        });
-
-    }
-
-    deleteByName(name) {
-
-        return new Promise((resolve, reject) => {
-            this.getByName(name)
-                .then((doc) => {
-
-                    if (!doc) {
-                        throw this.Error(
-                            `${this.entityName} not found: id = ${id}`,
-                            this.errorCodes.NOT_FOUND
-                        );
-                    }
-
-                    return this.deleteById(doc.id);
                 })
                 .then((result) => {
                     resolve(result);

@@ -4,7 +4,7 @@
 [![Test Coverage](https://codeclimate.com/github/mazaid/rest-exec-tasks/badges/coverage.svg)](https://codeclimate.com/github/mazaid/rest-exec-tasks/coverage)
 [![Build Status](https://travis-ci.org/mazaid/rest-exec-tasks.svg?branch=master)](https://travis-ci.org/mazaid/exec-tasks)
 
-checks REST API
+exec tasks REST API
 
 # Entity
 

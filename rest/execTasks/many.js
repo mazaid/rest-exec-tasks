@@ -52,7 +52,7 @@ module.exports = {
                             return res.logServerError(error);
                         }
 
-                        error.getCheckChain(res.logServerError)
+                        error.checkChain(res.logServerError)
                            .check();
                     });
             }
