@@ -24,7 +24,7 @@ class ApiAbstract extends Abstract {
     }
 
     getModificationSchema() {
-        return _.cloneDeep(this._modificationSchema);
+        return this._modificationSchema();
     }
 
     _generateUuid() {

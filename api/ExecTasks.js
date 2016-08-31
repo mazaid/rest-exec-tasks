@@ -24,13 +24,6 @@ class ExecTasks extends Abstract {
 
         this.ErrorCodes = ErrorCodes;
 
-        // this.__creationSchema = {
-        //     checkTaskId: joi.string().guid(),
-        //     type: joi.string().valid(['exec', 'http']).required(),
-        //     timeout: joi.number().min(1).default(60).description('task execution timeout in seconds, default = 60'),
-        //     data: joi.object().unknown(true).required()
-        // };
-
         this._creationSchema = function () {
             return {
                 checkTaskId: joi.string().guid().default(null).allow(null),
@@ -48,7 +41,15 @@ class ExecTasks extends Abstract {
             };
         };
 
-        this._modificationSchema = {};
+        this._modificationSchema = function() {
+            return {
+                status: joi.string().valid(['queued', 'started', 'finished']),
+                result: joi.object().unknown(true),
+                queuedDate: joi.number().integer().min(0),
+                startDate: joi.number().integer().min(0),
+                finishDate: joi.number().integer().min(0)
+            };
+        };
 
         this._systemFields = [
             '_id'
@@ -101,7 +102,8 @@ class ExecTasks extends Abstract {
         var chain = new Chain({
             steps: {
                 limit: 10,
-                skip: 0
+                skip: 0,
+                sort: null
             }
         });
 
@@ -201,8 +203,6 @@ class ExecTasks extends Abstract {
                     if (this._isEmptyObject(data)) {
                         throw this.Error('empty data', this.errorCodes.INVALID_DATA);
                     }
-
-                    valid.modificationDate = this._time();
 
                     return this._model().findOneAndUpdate({_id: id}, {$set: valid});
                 })

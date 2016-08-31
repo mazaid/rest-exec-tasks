@@ -1,4 +1,4 @@
 module.exports = [
-    // require('./oneByName'),
+    require('./one'),
     require('./many')
 ];

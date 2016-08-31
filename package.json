@@ -32,6 +32,8 @@
     "lodash": "^4.15.0",
     "maf": "^0.4.3",
     "mazaid-error": "^0.3.1",
+    "mazaid-exec": "^0.1.2",
+    "mazaid-exec-task": "^0.1.8",
     "md5": "^2.1.0",
     "mongodb": "^2.2.9",
     "repl-extra": "^0.1.3",

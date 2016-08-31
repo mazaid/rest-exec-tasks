@@ -4,12 +4,14 @@ module.exports = (config, models, di) => {
 
         var A = {
             ExecTasks: require('./ExecTasks'),
+            Executor: require('./Executor'),
             RestApiClient: require('maf/Rest/Client'),
         };
 
         var api = {};
 
         api.execTasks = new A.ExecTasks({}, models, api);
+        api.executor = new A.Executor(di.logger, {}, api);
         api.rest = new A.RestApiClient();
 
         for (var name in api) {

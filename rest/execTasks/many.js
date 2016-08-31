@@ -9,7 +9,7 @@ module.exports = {
 
     methods: {
         GET: {
-            title: 'find checks',
+            title: 'find exec tasks',
 
             schema: {
                 query: {
@@ -22,15 +22,16 @@ module.exports = {
                 var logger = req.di.logger;
                 var api = req.di.api;
 
-                api.checks.find()
+                api.execTasks.find()
                     .limit(req.query.limit)
                     .skip(req.query.offset)
+                    .sort({creationDate: -1})
                     .exec()
                     .then((result) => {
                         var docs = [];
 
                         for (var doc of result.docs) {
-                            docs.push(api.checks.clearSystemFields(doc));
+                            docs.push(api.execTasks.clearSystemFields(doc));
                         }
 
                         res.result(docs, {
@@ -73,8 +74,12 @@ module.exports = {
                 var api = req.di.api;
 
                 api.execTasks.create(req.body)
-                    .then((check) => {
-                        res.result(api.execTasks.clearSystemFields(check));
+                    .then((task) => {
+                        res.result(api.execTasks.clearSystemFields(task));
+                        return task;
+                    })
+                    .then((task) => {
+                        api.executor.exec(task.id);
                     })
                     .catch((error) => {
                         var ec = {
