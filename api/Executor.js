@@ -39,7 +39,7 @@ class Executor {
                 .then((_rawTask) => {
 
                     if (!_rawTask) {
-                        return reject(new Error(`task id = ${id} not found`, ErrorCodes.NOT_FOUND));
+                        throw createError(`task id = ${id} not found`, ErrorCodes.NOT_FOUND);
                     }
 
                     rawTask = _rawTask;
