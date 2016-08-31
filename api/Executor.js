@@ -8,15 +8,18 @@ var createError = require('mazaid-error');
 var ExecTask = require('mazaid-exec-task');
 var exec = require('mazaid-exec');
 
-class Executor {
+var ApiAbstract = require('./Abstract');
+
+class Executor extends ApiAbstract {
 
     constructor(logger, config, api) {
+
+        super(null, api);
 
         this.ErrorCodes = ErrorCodes;
 
         this._logger = logger;
         this._config = config;
-        this._api = api;
     }
 
     exec(id) {
@@ -39,7 +42,7 @@ class Executor {
                 .then((_rawTask) => {
 
                     if (!_rawTask) {
-                        throw createError(`task id = ${id} not found`, ErrorCodes.NOT_FOUND);
+                        throw createError(`exec task id = ${id} not found`, ErrorCodes.NOT_FOUND);
                     }
 
                     rawTask = _rawTask;
@@ -108,11 +111,9 @@ class Executor {
                         return;
                     }
 
-                    task.finished();
-
                     var data = {
                         status: 'finished',
-                        finishDate: task.finishDate,
+                        finishDate: this._time(),
                         result: {
                             code: 1,
                             error: error.message

@@ -79,7 +79,7 @@ module.exports = {
                         return task;
                     })
                     .then((task) => {
-                        api.executor.exec(task.id);
+                        api.execTaskExecutor.exec(task.id);
                     })
                     .catch((error) => {
                         var ec = {
