@@ -58,18 +58,18 @@ class Executor extends ApiAbstract {
                             status: 'finished',
                             finishDate: task.finishDate,
                             result: {
-                                code: 1,
-                                error: `timeout exceed ${task.timeout}s`
+                                code: -1,
+                                error: `[rest-exec-tasks] timeout exceed ${task.timeout} ms`
                             }
                         };
 
                         this._update(id, data)
                             .then(() => {
-                                reject(createError('timeout exceed'));
+                                reject(createError(`[rest-exec-tasks] timeout exceed ${task.timeout} ms`));
                             })
                             .catch((error) => {
                                 this._logger.error(error);
-                                reject(createError('timeout exceed'));
+                                reject(createError(`[rest-exec-tasks] timeout exceed ${task.timeout} ms`));
                             });
 
 

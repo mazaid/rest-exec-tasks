@@ -28,7 +28,7 @@ class ExecTasks extends Abstract {
             return {
                 checkTaskId: joi.string().guid().default(null).allow(null),
                 type: joi.string().valid(['exec', 'http']).required(),
-                timeout: joi.number().integer().min(1).default(120)
+                timeout: joi.number().integer().min(1).default(60)
                             .description('task execution timeout in seconds'),
                 data: joi.object().unknown(true).required(),
                 status: joi.string().valid(['created', 'queued', 'started', 'finished']).required(),
