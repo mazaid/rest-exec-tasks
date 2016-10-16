@@ -30,9 +30,9 @@
   "dependencies": {
     "joi": "^9.1.0",
     "lodash": "^4.16.4",
-    "maf": "^0.4.5",
+    "maf": "^0.4.6-beta",
     "mazaid-error": "^0.3.1",
-    "mazaid-exec": "^0.2.0",
+    "mazaid-exec": "^0.2.1",
     "mazaid-exec-task": "^0.1.8",
     "md5": "^2.2.1",
     "mongodb": "^2.2.10",

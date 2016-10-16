@@ -84,7 +84,7 @@ class Executor extends ApiAbstract {
                     return this._update(id, {status: 'started', startDate: task.startDate});
                 })
                 .then(() => {
-                    return exec(task);
+                    return exec(this._logger.getLogger('task-' + id), task);
                 })
                 .then((task) => {
 
@@ -106,6 +106,8 @@ class Executor extends ApiAbstract {
                     resolve(task);
                 })
                 .catch((error) => {
+
+                    this._logger.error(error);
 
                     if (error.code === 'timeout') {
                         return;
