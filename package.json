@@ -28,9 +28,9 @@
   },
   "homepage": "https://github.com/mazaid/rest-exec-tasks#readme",
   "dependencies": {
-    "joi": "^9.1.1",
+    "joi": "^9.2.0",
     "lodash": "^4.16.4",
-    "maf": "^0.4.6-beta",
+    "maf": "^0.4.6",
     "mazaid-error": "^0.3.1",
     "mazaid-exec": "^0.2.3",
     "mazaid-exec-task": "^0.1.9",
