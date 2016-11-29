@@ -4,7 +4,7 @@ var Abstract = require('./Abstract');
 
 class ExecTasks extends Abstract {
 
-    constructor(db) {
+    constructor (db) {
         super(db);
 
         this._collectionName = 'execTasks';

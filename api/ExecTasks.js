@@ -2,20 +2,18 @@
 
 var Abstract = require('./Abstract');
 var joi = require('joi');
-var moment = require('moment');
 var _ = require('lodash');
-var md5 = require('md5');
 
 var ErrorCodes = require('maf/Api/ErrorCodes');
 
-var apiError = require('mazaid-error/create')(ErrorCodes);
+// var apiError = require('mazaid-error/create')(ErrorCodes);
 
 
 var Chain = require('maf/Chain');
 
 class ExecTasks extends Abstract {
 
-    constructor(config, models, api) {
+    constructor (config, models, api) {
         super(models, api);
 
         this._config = config;
@@ -41,7 +39,7 @@ class ExecTasks extends Abstract {
             };
         };
 
-        this._modificationSchema = function() {
+        this._modificationSchema = function () {
             return {
                 status: joi.string().valid(['queued', 'started', 'finished']),
                 result: joi.object().unknown(true),
@@ -57,7 +55,7 @@ class ExecTasks extends Abstract {
 
     }
 
-    getCreationSchemaForRestApi() {
+    getCreationSchemaForRestApi () {
         var schema = this._creationSchema();
         var fields = ['checkTaskId', 'type', 'timeout', 'data'];
         var s = _.pick(schema, fields);
@@ -65,7 +63,7 @@ class ExecTasks extends Abstract {
     }
 
 
-    getById(id) {
+    getById (id) {
 
         return new Promise((resolve, reject) => {
             this._model().findOne({_id: id})
@@ -79,7 +77,7 @@ class ExecTasks extends Abstract {
 
     }
 
-    find(filters, fields) {
+    find (filters, fields) {
 
         var chain = new Chain({
             steps: {
@@ -109,7 +107,7 @@ class ExecTasks extends Abstract {
 
     }
 
-    create(data) {
+    create (data) {
 
         return new Promise((resolve, reject) => {
 
@@ -149,7 +147,7 @@ class ExecTasks extends Abstract {
 
     }
 
-    createTest() {
+    createTest () {
         // var data = {
         //     name: 'test',
         //     title: 'test',
@@ -162,7 +160,7 @@ class ExecTasks extends Abstract {
         // return this.create(data);
     }
 
-    updateById(id, data) {
+    updateById (id, data) {
 
         return new Promise((resolve, reject) => {
             if (this._isEmptyObject(data)) {
@@ -198,7 +196,7 @@ class ExecTasks extends Abstract {
 
     }
 
-    deleteById(id) {
+    deleteById (id) {
 
         return new Promise((resolve, reject) => {
 
@@ -234,7 +232,7 @@ class ExecTasks extends Abstract {
 
     }
 
-    _create (data, options) {
+    _create (data) {
 
         return new Promise((resolve, reject) => {
 
@@ -258,10 +256,10 @@ class ExecTasks extends Abstract {
     }
 
     /**
-     * @param {String} checkName
+     * @param {String} name
      * @return {Error}
      */
-    NotFoundError(name) {
+    NotFoundError (name) {
         var message = this.entityName + ' not found';
 
         if (name) {
@@ -276,7 +274,7 @@ class ExecTasks extends Abstract {
      *
      * @return {model}
      */
-    _model() {
+    _model () {
         return this._models.execTasks;
     }
 }

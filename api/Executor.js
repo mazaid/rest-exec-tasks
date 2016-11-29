@@ -12,7 +12,7 @@ var ApiAbstract = require('./Abstract');
 
 class Executor extends ApiAbstract {
 
-    constructor(logger, config, api) {
+    constructor (logger, config, api) {
 
         super(null, api);
 
@@ -22,10 +22,10 @@ class Executor extends ApiAbstract {
         this._config = config;
     }
 
-    exec(id) {
+    exec (id) {
 
         this._exec(id)
-            .then((result) => {
+            .then((/*result*/) => {
                 this._logger.info(`task id = ${id} finished success`);
             })
             .catch((error) => {
@@ -33,7 +33,7 @@ class Executor extends ApiAbstract {
             });
     }
 
-    _exec(id) {
+    _exec (id) {
 
         return new Promise((resolve, reject) => {
             var task, rawTask, timeout, timeouted = false;
@@ -136,7 +136,7 @@ class Executor extends ApiAbstract {
 
     }
 
-    _update(id, data) {
+    _update (id, data) {
         return this._api.execTasks.updateById(id, data);
     }
 
