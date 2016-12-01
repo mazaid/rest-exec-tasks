@@ -6,7 +6,7 @@ process.on('unhandledRejection', (error) => {
     logger.fatal(error);
 });
 
-require(path.join(__dirname, '/init/config'))()
+require('./init/config')(logger)
     .then((config) => {
         return require('./init/di')(logger, config);
     })
@@ -55,7 +55,7 @@ require(path.join(__dirname, '/init/config'))()
 
         var config = app.di.config;
 
-        app.listen(config.port, config.host, function() {
+        app.listen(config.port, config.host, function () {
             logger.info(`listen on ${config.host}:${config.port}`);
         });
 

@@ -1,19 +1,19 @@
 const repl = require('repl-extra');
 
-var logger = require('maf/Service/Logger')('rest-checks-cli');
+var logger = require('maf/Service/Logger')('rest-exec-tasks-cli');
 
 process.on('unhandledRejection', function (err) {
     logger.fatal(err);
 });
 
-require('./init/config')()
+require('./init/config')(logger)
     .then((config) => {
         return require('./init/di')(logger, config);
     })
     .then((di) => {
         var server = repl.startExtra({prompt: '# '});
 
-        server.context.i = function(data, depth) {
+        server.context.i = function (data, depth) {
             if (typeof depth === 'undefined') {
                 depth = 1;
             }
