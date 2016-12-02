@@ -10,7 +10,7 @@ module.exports = function (logger) {
             configPath: '/data/etc/mazaid/exec-tasks/config.json',
 
             consul: {
-                key: 'services/exec-tasks',
+                key: 'services/mazaid/exec-tasks',
                 timeout: 1000
             },
 
