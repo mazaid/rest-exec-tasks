@@ -1,16 +1,23 @@
 var joi = require('joi');
 
-module.exports = {
-    host: joi.string().allow(null).default('localhost'),
-    port: joi.number().default(8084),
-    db: joi.object().default({
+var config = {
+    host: 'localhost',
+    port: 8084,
+    db: {
         dsl: 'mongodb://localhost:27017/mazaid'
-    }).keys({
-        dsl: joi.string().default('mongodb://localhost:27017/mazaid')
-    }),
-    nprof: joi.object().default({
+    },
+    nprof: {
         snapshotPath: '/data/tmp/mazaid-rest-exec-tasks'
-    }).keys({
-        snapshotPath: joi.string().default('/data/tmp/mazaid-rest-exec-tasks')
+    }
+};
+
+module.exports = {
+    host: joi.string().allow(null).default(config.host),
+    port: joi.number().default(config.port),
+    db: joi.object().default(config.db).keys({
+        dsl: joi.string().default(config.db.dsl)
+    }),
+    nprof: joi.object().default(config.nprof).keys({
+        snapshotPath: joi.string().default(config.nprof.snapshotPath)
     })
 };
