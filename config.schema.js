@@ -9,8 +9,8 @@ module.exports = {
         dsl: joi.string().default('mongodb://localhost:27017/mazaid')
     }),
     nprof: joi.object().default({
-        snapshotPath: '/data/tmp/mazaid/exec-tasks'
+        snapshotPath: '/data/tmp/mazaid-rest-exec-tasks'
     }).keys({
-        snapshotPath: joi.string().default('/data/tmp/mazaid/exec-tasks')
+        snapshotPath: joi.string().default('/data/tmp/mazaid-rest-exec-tasks')
     })
 };
